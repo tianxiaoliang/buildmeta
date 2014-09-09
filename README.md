@@ -41,16 +41,16 @@ response json. need to use @Component to make ExceptionHandler load by spring-re
 verify if is created. (Done)
 
 
-Readme for Developer and Operator
+Developer Guide
 ======================================
 
 1. Run
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------
 cd $HOME
 mvn jetty:run
 
 2. Run Unit Test
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------
 
 1) Run all unit tests
 mvn test -Dtest=BuildRestServiceUnitTest
@@ -61,7 +61,7 @@ mvn test -Dtest=BuildRestServiceSmokeTest#testCreateBuildInfoAPI
 mvn test -Dtest=BuildRestServiceSmokeTest#testGetBuildsByParams
 
 3. Run SmokeTest
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------
 
 1) Run BuildMetadata Service
   mvn jetty:run 
@@ -71,7 +71,7 @@ mvn test -Dtest=BuildRestServiceSmokeTest#testGetBuildsByParams
   mvn test -Dtest=BuildMetadataServiceSmokeTest
 
 4. Call Rest APIs by curl
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 1) Set logger logging level
 curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG
@@ -79,17 +79,24 @@ curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logg
 2)
 
 5. Debug Tools
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------
 
 1) change logging level
 
 curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG
 
-Deployment
+6. Disable API oauth
+---------------------------------------------------
+
+in file src/main/webapp/WEB-INF/applicationContext.xml comment /ws/builds 
+<!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" /> -->
+
+
+Operator Guide
 =======================
 
 System Requirements:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------------------------
 - Maven 2.0.9 or higher
 
 Added client module. The module shows an example to test the existing 
@@ -98,7 +105,7 @@ web container: jetty6 in an embedded mode. The container is injected
 in the junit 4 test. The client makes use of the resteasy client framework.
 
 1) Configuration and override Configurations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------------------
 
 defautlt configuration:  classpath*:/application.properties
 override Configurations: file:/var/flysnow/buildmeta/application.properties
@@ -106,26 +113,15 @@ override Configurations: file:/var/flysnow/buildmeta/application.properties
 can configure db properties in application.properties
 
 2) Run
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------
 
 mvn jetty:run
-
-3) Disable API oauth
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-in file src/main/webapp/WEB-INF/applicationContext.xml comment /ws/builds 
-<!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" /> -->
-
-
-
 
 Python OAuth Client:
 =============================
 
-from infrastructure.common.oauth.OAuthUtil import OAuth2LeggedClient
+import OAuth2LeggedClient
 import requests
-from infrastructure.common.logger.LoggerFactory import LoggerFactory
-logger = LoggerFactory.getLogger(__name__)
 
 class BuildMetaWSOauthClient(object):
     '''

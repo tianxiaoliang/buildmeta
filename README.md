@@ -55,7 +55,8 @@ Developer Guide
 -----------------
 
 1) Run all unit tests
-mvn test -Dtest=BuildRestServiceUnitTest
+
+`mvn test -Dtest=BuildRestServiceUnitTest`
 
 2) Run a test case specified
 
@@ -121,7 +122,7 @@ can configure db properties in application.properties
 2) Run
 ----------------------------------
 
-mvn jetty:run
+`mvn jetty:run`
 
 Python OAuth Client:
 =============================

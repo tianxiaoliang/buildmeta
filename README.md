@@ -46,8 +46,10 @@ Developer Guide
 
 1. Run
 -----------------
-cd $HOME
-mvn jetty:run
+
+`cd $HOME`
+
+`mvn jetty:run`
 
 2. Run Unit Test
 -----------------
@@ -56,9 +58,10 @@ mvn jetty:run
 mvn test -Dtest=BuildRestServiceUnitTest
 
 2) Run a test case specified
-mvn test -Dtest=BuildRestServiceSmokeTest#testCreateBuildInfoAPI
 
-mvn test -Dtest=BuildRestServiceSmokeTest#testGetBuildsByParams
+`mvn test -Dtest=BuildRestServiceSmokeTest#testCreateBuildInfoAPI`
+
+`mvn test -Dtest=BuildRestServiceSmokeTest#testGetBuildsByParams`
 
 3. Run SmokeTest
 -----------------
@@ -67,14 +70,17 @@ mvn test -Dtest=BuildRestServiceSmokeTest#testGetBuildsByParams
   mvn jetty:run 
   
 2) Run Smoke Test
-  mvn test -Dtest=BuildRestServiceSmokeTest
-  mvn test -Dtest=BuildMetadataServiceSmokeTest
+
+  `mvn test -Dtest=BuildRestServiceSmokeTest`
+
+  `mvn test -Dtest=BuildMetadataServiceSmokeTest`
 
 4. Call Rest APIs by curl
 ----------------------------------
 
 1) Set logger logging level
-curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG
+
+`curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG`
 
 2)
 
@@ -83,7 +89,7 @@ curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logg
 
 1) change logging level
 
-curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG
+`curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG`
 
 6. Disable API oauth
 ---------------------------------------------------

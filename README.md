@@ -1,7 +1,7 @@
 Build Metadata Rest Service
 ======================================
 
-Build Meta holds all the component builds' metadata for implementing such as Contintous Deployment System.
+Build Meta holds all the component builds' metadata for implementing such as contintous automatic deployment system.
 
 Context and Aims
 ======================================

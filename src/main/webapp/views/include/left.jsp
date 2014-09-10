@@ -56,20 +56,6 @@
 										Component Builds
 									</a>
 								</li>
-                                
-                                <li>
-									<a href="elements.html">
-										<i class="icon-double-angle-right"></i>
-										AutoOps Builds
-									</a>
-								</li>
-                                
-                                <li>
-									<a href="elements.html">
-										<i class="icon-double-angle-right"></i>
-										Farm Builds
-									</a>
-								</li>
 							</ul>
 						</li>
                         

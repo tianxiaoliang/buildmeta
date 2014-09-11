@@ -56,14 +56,17 @@ in the junit 4 test. The client makes use of the resteasy client framework.
 1) Configuration and override Configurations
 --------------------------------------------------------------------
 
-defautlt configuration:  classpath*:/application.properties
-override Configurations: file:/var/flysnow/buildmeta/application.properties
+`default configuration:  classpath*:/application.properties`
+
+`override Configurations: file:/var/flysnow/buildmeta/application.properties`
 
 can configure db properties in application.properties
 
 2) Create database and tables
 
-mysql -usrc/main/resources/dbdeploy/buildmeta_2014-09-09.sql
+`cd $BUILD_META_PROJECT_HOME`
+
+`mysql -ubuildmeta -pbuildmeta buildmeta < src/main/resources/dbdeploy/buildmeta_2014-09-09.sql`
 
 
 1. Run
@@ -115,11 +118,12 @@ mysql -usrc/main/resources/dbdeploy/buildmeta_2014-09-09.sql
 
 `curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG`
 
-6. Disable API oauth
+6. Disable API OAuth
 ---------------------------------------------------
 
-in file src/main/webapp/WEB-INF/applicationContext.xml comment /ws/builds 
-<!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" /> -->
+in file src/main/webapp/WEB-INF/applicationContext.xml comment /ws/builds url pattern:
+
+`<!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" /> -->`
 
 
 Python OAuth Client:

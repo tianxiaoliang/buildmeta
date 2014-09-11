@@ -131,6 +131,8 @@ Python OAuth Client:
 
 import OAuth2LeggedClient
 import requests
+import json
+from oauth import oauth
 
 class BuildMetaWSOauthClient(object):
     '''
@@ -148,12 +150,13 @@ class BuildMetaWSOauthClient(object):
         pass
     
     def getBuilds(self):
-        import json
-
-        oauth_publishapi = OAuth2LeggedClient.generateOAuthRequestUrl(base_url = self.apiUrl, 
-                                                                      comsumer_key = self.oauthKey, 
-                                                                      comsumer_secret = self.oauthSecret, 
-                                                                      http_method = "GET")
+        http_method="GET"
+        oa_consumer = oauth.OAuthConsumer(self.oauthKey, self.oauthSecret)
+        oa_request  = oauth.OAuthRequest.from_consumer_and_token(oa_consumer, http_url = self.apiUrl, http_method = http_method)
+        
+        oa_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(), oa_consumer, None)
+        
+        oauth_publishapi = "%s?%s" % (base_url, str(oa_request.to_postdata()))
         
         try:
             headers = {'content-type': 'application/json'}

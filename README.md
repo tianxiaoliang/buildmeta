@@ -167,5 +167,5 @@ class BuildMetaWSOauthClient(object):
         pass
 
 
-client = BuildMetaWSOauthClient()
-client.getBuilds()
+`client = BuildMetaWSOauthClient()`
+`client.getBuilds()`

@@ -8,7 +8,7 @@ Context and Aims
 
 When I was implementing a platform service, always required to build rest services, but can not get on-the-shelf examples that can be used for product service, most of the examples do not give the enough implementations
 that meeting the production level security requirements etc, most only provides simple get started usage. 
-At the same time, lots of people ask the some question in Stackflow and other sites, "is there such on-the-shelf Rest Service examples that support OAuth, built base on common frameworks spring,resteasy,restlet etc, auth by 2-legged OAuth?"
+At the same time, lots of people ask the same question in Stackflow and other sites, "is there such on-the-shelf Rest Service examples that support 2-legged OAuth?"
 
 Now, the answer is Yes.
 

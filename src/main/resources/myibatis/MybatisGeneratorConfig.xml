@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="~/.m2/repository/mysql/mysql-connector-java/5.0.4/mysql-connector-java-5.0.4.jar" />
+	<context id="buildmetadata">
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/buildmeta"
+			userId="buildmeta" password="buildmeta" />
+		
+		<javaModelGenerator targetPackage="org.flysnow.cloud.buildmeta.domain.model"
+			targetProject="buildmetadata" />
+		<sqlMapGenerator targetPackage="org.flysnow.cloud.buildmeta.domain.dao"
+			targetProject="buildmetadata" />
+		<javaClientGenerator targetPackage="org.flysnow.cloud.buildmeta.domain.dao"
+			targetProject="buildmetadata" type="XMLMAPPER" />
+		
+		<table schema="buildmeta" tableName="build">
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table schema="buildmeta" tableName="branch">
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+		<table schema="buildmeta" tableName="repository">
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
+	</context>
+</generatorConfiguration>

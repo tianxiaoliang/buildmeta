@@ -1,0 +1,14 @@
+{
+  "build": {
+      "repoUrl": "git@git.flysnow.org:ci/helloworld.git",
+      "branch": "master",
+      "groupId": "com.flysnow.cloud",
+      "artifactId": "helloworld",
+      "packaging": "zip",
+      "type": "continuous",
+      "version": "0.2-20140122.065951-22",
+      "md5": "a935373d6cd982b090a0de51adf25943",
+      "downloadUrl": "https://www.flysnow.org/nexus/content/repositories/snapshots/com/flysnow/cloud/helloworld/0.1-SNAPSHOT/helloworld-0.2-20140122.065951-14-ci.zip",
+      "classifier": null
+  }
+}

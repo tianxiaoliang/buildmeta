@@ -1,14 +1,14 @@
 Build Metadata Rest Service
 ======================================
 
-Build Meta holds all the component builds' metadata for implementing such as continuous automatic deployment system, deployment pipeline, continuous delivery platform.
+Build Meta holds all the component builds' metadata for implementing such as contintous automatic deployment system.
 
 Context and Aims
 ======================================
 
 When I was implementing a platform service, always required to build rest services, but can not get on-the-shelf examples that can be used for product service, most of the examples do not give the enough implementations
 that meeting the production level security requirements etc, most only provides simple get started usage. 
-At the same time, lots of people ask the same question in Stackflow and other sites, "is there such on-the-shelf Rest Service examples that support 2-legged OAuth?"
+At the same time, lots of people ask the some question in Stackflow and other sites, "is there such on-the-shelf Rest Service examples that support OAuth, built base on common frameworks spring,resteasy,restlet etc, auth by 2-legged OAuth?"
 
 Now, the answer is Yes.
 
@@ -38,7 +38,6 @@ response json. need to use @Component to make ExceptionHandler load by spring-re
 13. Make Cobertura Test Coverage usage example  (To Do)
 14. Make unit tests examples for CRUD APIs, in setup and teardown create and delete, in createTest Case
 verify if is created. (Done)
-15. Support multiple versions
 
 
 Developer Guide
@@ -57,17 +56,14 @@ in the junit 4 test. The client makes use of the resteasy client framework.
 1) Configuration and override Configurations
 --------------------------------------------------------------------
 
-`default configuration:  classpath*:/application.properties`
-
-`override Configurations: file:/var/flysnow/buildmeta/application.properties`
+defautlt configuration:  classpath*:/application.properties
+override Configurations: file:/var/flysnow/buildmeta/application.properties
 
 can configure db properties in application.properties
 
 2) Create database and tables
 
-`cd $BUILD_META_PROJECT_HOME`
-
-`mysql -ubuildmeta -pbuildmeta buildmeta < src/main/resources/dbdeploy/buildmeta_2014-09-09.sql`
+mysql -usrc/main/resources/dbdeploy/buildmeta_2014-09-09.sql
 
 
 1. Run
@@ -119,12 +115,11 @@ can configure db properties in application.properties
 
 `curl -v -X GET -H "Content-Type: application/json" http://localhost:8080/ws/logging/org.flysnow/DEBUG`
 
-6. Disable API OAuth
+6. Disable API oauth
 ---------------------------------------------------
 
-in file src/main/webapp/WEB-INF/applicationContext.xml comment /ws/builds url pattern:
-
-`<!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" /> -->`
+in file src/main/webapp/WEB-INF/applicationContext.xml comment /ws/builds 
+<!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" /> -->
 
 
 Python OAuth Client:
@@ -132,8 +127,6 @@ Python OAuth Client:
 
 import OAuth2LeggedClient
 import requests
-import json
-from oauth import oauth
 
 class BuildMetaWSOauthClient(object):
     '''
@@ -151,13 +144,12 @@ class BuildMetaWSOauthClient(object):
         pass
     
     def getBuilds(self):
-        http_method="GET"
-        oa_consumer = oauth.OAuthConsumer(self.oauthKey, self.oauthSecret)
-        oa_request  = oauth.OAuthRequest.from_consumer_and_token(oa_consumer, http_url = self.apiUrl, http_method = http_method)
-        
-        oa_request.sign_request(oauth.OAuthSignatureMethod_HMAC_SHA1(), oa_consumer, None)
-        
-        oauth_publishapi = "%s?%s" % (base_url, str(oa_request.to_postdata()))
+        import json
+
+        oauth_publishapi = OAuth2LeggedClient.generateOAuthRequestUrl(base_url = self.apiUrl, 
+                                                                      comsumer_key = self.oauthKey, 
+                                                                      comsumer_secret = self.oauthSecret, 
+                                                                      http_method = "GET")
         
         try:
             headers = {'content-type': 'application/json'}
@@ -171,5 +163,5 @@ class BuildMetaWSOauthClient(object):
         pass
 
 
-`client = BuildMetaWSOauthClient()`
-`client.getBuilds()`
+client = BuildMetaWSOauthClient()
+client.getBuilds()

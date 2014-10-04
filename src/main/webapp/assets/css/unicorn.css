@@ -2452,6 +2452,7 @@ form .form-group:last-child {
   font-weight: bold;
   color: #555555;
   text-shadow: 0 1px 0 #fff;
+  font-size:smaller;
 }
 .form-horizontal .form-actions {
   background-color: #f4f4f4;

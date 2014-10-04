@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.flysnow.cloud</groupId>
-    <artifactId>buildmetadata-unicorn</artifactId>
+    <artifactId>buildmeta</artifactId>
     <packaging>war</packaging>
     <version>0.1-SNAPSHOT</version>
     <name>Build Metadata</name>
@@ -11,10 +11,13 @@
     
     <properties>
         <spring.version>3.0.5.RELEASE</spring.version>
+        <jettyVersion>8.1.7.v20120910</jettyVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.security.version>3.0.3.RELEASE</spring.security.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
     </properties>
-  
+    
     <developers>
         <developer>
             <name>Fly Snow</name>
@@ -85,6 +88,33 @@
 
 
         <!-- Middleware Related Libs -->
+        <dependency>
+	      <groupId>org.eclipse.jetty</groupId>
+	      <artifactId>jetty-server</artifactId>
+	      <version>${jettyVersion}</version>
+	      <scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	      <groupId>org.eclipse.jetty</groupId>
+	      <artifactId>jetty-webapp</artifactId>
+	      <version>${jettyVersion}</version>
+	      <scope>provided</scope>
+	    </dependency>
+	    <!-- the dependency can be commented if no jsp  -->
+	    <dependency>
+	      <groupId>org.eclipse.jetty.orbit</groupId>
+	      <artifactId>org.apache.jasper.glassfish</artifactId>
+	      <version>2.2.2.v201112011158</version>
+	      <scope>provided</scope>
+	    </dependency>
+	    <!-- the dependency can be commented if no jsp  -->
+	    <dependency>
+	      <groupId>org.eclipse.jetty.orbit</groupId>
+	      <artifactId>javax.el</artifactId>
+	      <version>2.2.0.v201108011116</version>
+	      <scope>provided</scope>
+	    </dependency>
+		
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
@@ -178,14 +208,14 @@
 			<resource>
 				<directory>src/main/webapp</directory>
 			</resource>
-			<resource>
-				<directory>src/main/java/org/flysnow/cloud/buildmeta/domain/dao</directory>
-				<filtering>false</filtering> 
-                <includes> 
-                    <include>*.xml</include> 
-                </includes> 
-                <targetPath>org/flysnow/cloud/buildmeta/domain/dao</targetPath>
-			</resource>
+			<resource> 
+		        <directory>src/main/java/org/flysnow/cloud/buildmeta/domain/dao</directory> 
+		        <filtering>true</filtering> 
+		        <includes> 
+		            <include>*.xml</include> 
+		        </includes> 
+		        <targetPath>org/flysnow/cloud/buildmeta/domain/dao</targetPath>
+		    </resource> 
 		</resources>
 		
         <plugins>
@@ -199,51 +229,78 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.0.1</version>
-                <configuration>
-                    <webXml>${basedir}/src/main/webapp/WEB-INF/web.xml</webXml>
-                </configuration>
-            </plugin>
-            <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-surefire-plugin</artifactId>
-		        <version>2.9</version>
-	    </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.9.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <effort>Max</effort>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>dashboard-maven-plugin</artifactId>
-                <version>1.0.0-beta-1</version>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
-            </plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-war-plugin</artifactId>
+	          <version>2.3</version>
+	          <configuration>
+	            <archive>
+	              <manifest>
+	                <mainClass>org.flysnow.cloud.main.Main</mainClass>
+	                <!--
+	                <addClasspath>true</addClasspath>
+	                -->
+	              </manifest>
+	            </archive>
+	          </configuration>
+	        </plugin>
+	
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-antrun-plugin</artifactId>
+	          <version>1.7</version>
+	          <executions>
+	            <execution>
+	              <id>main-class-placement</id>
+	              <phase>prepare-package</phase>
+	              <configuration>
+	                <target>
+	                  <move todir="${project.build.directory}/${project.artifactId}/">
+	                    <fileset dir="${project.build.directory}/classes/">
+	                      <include name="org/flysnow/cloud/main/Main.class" />
+	                    </fileset>
+	                  </move>
+	                </target>
+	              </configuration>
+	              <goals>
+	                <goal>run</goal>
+	              </goals>
+	            </execution>
+	          </executions>
+	        </plugin>
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>
+	          <artifactId>maven-dependency-plugin</artifactId>
+	          <version>2.5.1</version>
+	          <executions>
+	            <execution>
+	              <id>jetty-classpath</id>
+	              <phase>prepare-package</phase>
+	              <goals>
+	                <goal>unpack-dependencies</goal>
+	              </goals>
+	              <configuration> 
+	                <includeGroupIds>org.eclipse.jetty, org.eclipse.jetty.orbit</includeGroupIds>
+	                <includeScope>provided</includeScope>
+	                <!-- remove some files in order to decrease size -->
+	                <excludes>*, about_files/*, META-INF/*</excludes>
+	                <outputDirectory>
+	                  ${project.build.directory}/${project.artifactId}
+	                </outputDirectory>
+	              </configuration>
+	            </execution>
+	          </executions>
+	        </plugin>
+		    <!-- to support compilation in linux -->
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>  
+	          <artifactId>maven-compiler-plugin</artifactId>
+	          <version>2.5.1</version>
+	          <configuration>
+	            <target>1.6</target>
+	            <source>1.6</source>
+	            <encoding>UTF-8</encoding> 
+	          </configuration>
+	        </plugin>
         </plugins>
     </build>
 

@@ -114,6 +114,12 @@
 	      <version>2.2.0.v201108011116</version>
 	      <scope>provided</scope>
 	    </dependency>
+	    <dependency>
+			<groupId>org.eclipse.jetty.orbit</groupId>
+			<artifactId>javax.servlet.jsp.jstl</artifactId>
+			<version>1.2.0.v201105211821</version>
+			<scope>provided</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.mybatis</groupId>

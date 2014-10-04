@@ -23,7 +23,7 @@
 			</div>
 			<div id="row">
 			    <div class="col-xs-12">
-				<button class="btn btn-inverse btn-sm"><span>New</span></button>
+				<a href="/views/authviews/build/new.jsp" class="btn btn-inverse btn-sm"><span>New</span></a>
 				</div>
 			</div>
 			<div class="row">

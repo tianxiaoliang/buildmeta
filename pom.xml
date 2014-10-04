@@ -171,6 +171,23 @@
 
     <build>
         <finalName>buildmeta</finalName>
+        <resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/webapp</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java/org/flysnow/cloud/buildmeta/domain/dao</directory>
+				<filtering>false</filtering> 
+                <includes> 
+                    <include>*.xml</include> 
+                </includes> 
+                <targetPath>org/flysnow/cloud/buildmeta/domain/dao</targetPath>
+			</resource>
+		</resources>
+		
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>

@@ -115,12 +115,12 @@
 	      <version>2.2.0.v201108011116</version>
 	      <scope>provided</scope>
 	    </dependency>
-	    <dependency>
-			<groupId>org.eclipse.jetty.orbit</groupId>
-			<artifactId>javax.servlet.jsp.jstl</artifactId>
-			<version>1.2.0.v201105211821</version>
-			<scope>provided</scope>
-		</dependency>
+		<dependency>
+	        <groupId>javax.servlet</groupId>
+	        <artifactId>jstl</artifactId>
+	        <version>1.2</version>
+	        <scope>provided</scope>
+	    </dependency>
 		
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -220,6 +220,7 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <version>6.1.15</version>
                 <configuration>
+                    <contextXml>${project.basedir}/src/main/resources/jetty-context.xml</contextXml>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>2</scanIntervalSeconds>
                 </configuration>

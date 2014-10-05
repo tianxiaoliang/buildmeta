@@ -1,7 +1,7 @@
 <%@ page import="org.springframework.security.core.AuthenticationException" %>
 <%@ page import="org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter" %>
 <%@ taglib prefix="authz" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:if test="${!empty sessionScope.SPRING_SECURITY_LAST_EXCEPTION}">
   <c:redirect url="/views/login.jsp"/>
 </c:if>

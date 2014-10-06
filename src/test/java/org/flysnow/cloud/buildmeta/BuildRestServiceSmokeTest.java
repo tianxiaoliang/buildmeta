@@ -50,7 +50,7 @@ public class BuildRestServiceSmokeTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testCreateBuildInfoAPI() throws Exception{
 		trace(Thread.currentThread().getStackTrace());
 		String id = this.testBuild.getId();
@@ -62,7 +62,7 @@ public class BuildRestServiceSmokeTest {
 	    logger.info(gson.toJson(build));
 	}
 	
-	@Test
+	//@Test
 	public void testGetBuildsByParams() throws Exception{
 		trace(Thread.currentThread().getStackTrace());
 		String id = this.testBuild.getId();
@@ -101,7 +101,7 @@ public class BuildRestServiceSmokeTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void testGetBranches() throws Exception {
 		trace(Thread.currentThread().getStackTrace());
 		String repoUrl = this.testBuild.getRepoUrl();
@@ -112,7 +112,7 @@ public class BuildRestServiceSmokeTest {
 	    }
 	}
 	
-	@Test
+	//@Test
 	public void testGetRepositories() throws Exception {
 		trace(Thread.currentThread().getStackTrace());
 		List<Repository> repositories = this.buildRegistryWSClient.getRepositories();
@@ -122,7 +122,7 @@ public class BuildRestServiceSmokeTest {
 	    }
 	}
 		
-	@Test
+	//@Test
 	public void testDeleteBuild() throws Exception {
 		trace(Thread.currentThread().getStackTrace());
 		String id = this.testBuild.getId();
@@ -133,7 +133,7 @@ public class BuildRestServiceSmokeTest {
 		assertTrue(build==null);
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteBranch() throws Exception {
 		trace(Thread.currentThread().getStackTrace());
 		List<Branch> branches = this.buildRegistryWSClient.getBranches(this.testBuild.getRepoUrl());
@@ -159,7 +159,7 @@ public class BuildRestServiceSmokeTest {
 		assertTrue(branches!=null && branches.size()==0);
 	}
 	
-	@Test
+	//@Test
 	public void testDeleteRepository() throws Exception {
 		trace(Thread.currentThread().getStackTrace());
 		List<Repository> repos = this.buildRegistryWSClient.getRepositories();

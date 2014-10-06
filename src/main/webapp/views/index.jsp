@@ -62,7 +62,7 @@
 							<div class="widget-box">
 								<div class="widget-title">
 									<span class="icon"><i class="fa fa-signal"></i></span>
-									<h5>Site Statistics</h5>
+									<h5>DevOps Statistics</h5>
 									<div class="buttons">
 										<a href="#" class="btn"><i class="fa fa-refresh"></i> <span class="text">Update stats</span></a>
 									</div>

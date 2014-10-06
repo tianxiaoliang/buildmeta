@@ -33,7 +33,7 @@ public class BranchResource {
     BuildService buildService;
     
     /**
-     * curl http://localhost:8080/ws/branch?repo=git@git.flysnow.org:ci/helloworld.git
+     * curl http://localhost:8080/ws/branch?repo_url=git@git.flysnow.org:ci/helloworld.git
      * Sample Ouputs:
      * {
      *   "repos" : [

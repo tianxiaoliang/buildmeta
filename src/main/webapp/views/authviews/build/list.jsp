@@ -17,6 +17,8 @@
 	    <!-- sidebar ends -->
 		
 		<div id="content">
+		    <div id="content-header" class="mini">
+			</div>
 			<div id="breadcrumb">
 				<a href="#" title="Go to Home" class="tip-bottom"><i class="fa fa-home"></i> Home</a>
 				<a href="#" class="current">Builds</a>

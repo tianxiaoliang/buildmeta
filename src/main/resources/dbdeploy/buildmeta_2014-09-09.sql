@@ -67,8 +67,19 @@ CREATE TABLE `repository` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `collector`;
 
+CREATE TABLE `collector` (
+  `id` int(11) NOT NULL auto_increment,
+  `env_id` varchar(256) NOT NULL,
+  `role` varchar(256) NOT NULL,
+  `target` varchar(256) NOT NULL,
+  `c_type` varchar(256) NOT NULL,
+  `content` MediumText NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO collector VALUES ('1', '71', 'bst-devops-es-64-centos6-1021', 'system env','text','env');
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

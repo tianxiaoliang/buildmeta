@@ -9,11 +9,11 @@
 			userId="buildmeta" password="buildmeta" />
 		
 		<javaModelGenerator targetPackage="org.flysnow.cloud.buildmeta.domain.model"
-			targetProject="buildmetadata" />
+			targetProject="src/main/java" />
 		<sqlMapGenerator targetPackage="org.flysnow.cloud.buildmeta.domain.dao"
-			targetProject="buildmetadata" />
+			targetProject="src/main/java" />
 		<javaClientGenerator targetPackage="org.flysnow.cloud.buildmeta.domain.dao"
-			targetProject="buildmetadata" type="XMLMAPPER" />
+			targetProject="src/main/java" type="XMLMAPPER" />
 		
 		<table schema="buildmeta" tableName="build">
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />

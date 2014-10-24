@@ -5,11 +5,13 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
+import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Branch;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Build;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Repository;
 import org.flysnow.cloud.buildmeta.wsclient.ui.model.CreateBuildInfoRequest;
 import org.flysnow.cloud.buildmeta.wsclient.ui.model.CreateBuildInfoResponse;
+import org.flysnow.cloud.buildmeta.wsclient.ui.model.CreateCollectorResultRequest;
 import org.flysnow.cloud.buildmeta.wsclient.ui.model.GetBranchResponse;
 import org.flysnow.cloud.buildmeta.wsclient.ui.model.GetBuildInfoResponse;
 import org.flysnow.cloud.buildmeta.wsclient.ui.model.GetCollectorResponse;
@@ -35,7 +37,7 @@ public class CollectorWSClient {
 	private String apiKey;
 	private String apiSecret;
 	private OAuthService oAuthService;
-
+	static Token accessToken = new Token("rtcIe1nbtwhG8fjfSPnUiIM4hWegrWGNGeRokHdI", "");
 	private static String URI = "/ws/collector";
 
 	public CollectorWSClient(String endpoint, String apiKey, String apiSecret) {
@@ -73,6 +75,20 @@ public class CollectorWSClient {
 
 		return collectors;
 	}
+	public List<Collector> postResult(CreateCollectorResultRequest r)
+			throws BuildWSClientException {
+		List<Collector> collectors = null;
+		
+		OAuthRequest request = new OAuthRequest(Verb.POST, this.endpoint + URI+"/result"); 
+		request.addPayload(new Gson().toJson(r));
+		System.out.println(request.getBodyContents());
+		String jsonResponse = this.sendRequest(request);
+
+		System.out.println(jsonResponse);
+
+		return collectors;
+	}
+
 
 	public String sendRequest(OAuthRequest request)
 			throws BuildWSClientException {

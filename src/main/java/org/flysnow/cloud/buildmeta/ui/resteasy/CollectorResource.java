@@ -3,18 +3,25 @@ package org.flysnow.cloud.buildmeta.ui.resteasy;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.apache.log4j.Logger;
 import org.flysnow.cloud.buildmeta.application.BuildService;
 import org.flysnow.cloud.buildmeta.application.CollectorService;
 import org.flysnow.cloud.buildmeta.domain.model.Branch;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
+import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
+import org.flysnow.cloud.buildmeta.publisher.KafkaPublisher;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.BuildMetadataServiceException;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.ErrorCode;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.ErrorResponse;
@@ -74,4 +81,17 @@ public class CollectorResource {
 		return json;
 	}
 
+	@POST
+	@Produces("application/json")
+	@Path("/result")
+	public Response result(@Context UriInfo uri, CollectorResult result) {
+		logger.info("get result==" + result.getText());
+		// publish to kafka
+		String topic = result.combineTopic();
+		KafkaPublisher publisher = new KafkaPublisher();
+		publisher.init();
+		publisher.send(topic, new Gson().toJson(result));
+		return Response.status(200).entity(result.getText()).build();
+
+	}
 }

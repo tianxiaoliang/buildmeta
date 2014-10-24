@@ -153,7 +153,12 @@
 			<artifactId>commons-io</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka_2.10</artifactId>
+			<version>0.8.1.1</version>
+		</dependency>
+
 		<!-- Formated Data(JSON,XML) Parsing Libs -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>

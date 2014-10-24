@@ -17,6 +17,7 @@
     <sec:intercept-url pattern="/*" access="ROLE_USER" />
     <sec:intercept-url pattern="/views/index.jsp" access="ROLE_USER" />
     <sec:intercept-url pattern="/views/authviews/**" access="ROLE_USER" />
+    <sec:intercept-url pattern="/ws/collector/**" access="ROLE_USER" />
     <!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" />  -->
     <sec:intercept-url pattern="/request_token_authorized.jsp" access="ROLE_USER" />
     <!--  <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" /> -->
@@ -51,6 +52,14 @@
                     resourceDescription="Meta data of Component Build Binary."
                     requiredToObtainAuthenticatedToken="false"
                     authorities="ROLE_CONSUMER"
+                    />
+  <oauth:consumer name="devopsadmin" 
+                    key="devopsadmin" 
+                    secret="devops2014" 
+                    resourceName="CollectorResource"
+                    resourceDescription=""
+                    requiredToObtainAuthenticatedToken="false"
+                    authorities="ROLE_USER"
                     />
   </oauth:consumer-details-service>
 

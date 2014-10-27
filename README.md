@@ -122,6 +122,11 @@ in file src/main/webapp/WEB-INF/applicationContext.xml comment /ws/builds
 <!--  <sec:intercept-url pattern="/ws/builds/**" access="ROLE_CONSUMER" /> -->
 
 
+7.Generate Ibatis Files
+java -jar mybatis-generator-core-1.3.0.jar -configfile MybatisGeneratorConfig.xml 
+
+
+
 Python OAuth Client:
 =============================
 

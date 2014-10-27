@@ -9,11 +9,14 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
 import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
+import org.flysnow.cloud.buildmeta.domain.model.Farm;
 import org.flysnow.cloud.buildmeta.requests.CreateCollectorResultRequest;
+import org.flysnow.cloud.buildmeta.requests.RegisterFarmResultRequest;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.ErrorResponse;
 import org.flysnow.cloud.buildmeta.wsclient.BuildMetadataWSClient;
 import org.flysnow.cloud.buildmeta.wsclient.BuildWSClientException;
 import org.flysnow.cloud.buildmeta.wsclient.CollectorWSClient;
+import org.flysnow.cloud.buildmeta.wsclient.FarmWSClient;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Branch;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Build;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Repository;
@@ -24,46 +27,43 @@ import org.junit.Test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class CollectorRestServiceSmokeTest {
+public class FarmRestServiceSmokeTest {
 
 	private static Logger logger = Logger
-			.getLogger(CollectorRestServiceSmokeTest.class);
+			.getLogger(FarmRestServiceSmokeTest.class);
 
 	private static final String ENDPOINT = "http://localhost:8080/";
 	private static final String API_KEY = "devopsadmin";
 	private static final String API_SECRET = "devops2014";
 
-	private CollectorWSClient client = new CollectorWSClient(ENDPOINT, API_KEY,
+	private FarmWSClient client = new FarmWSClient(ENDPOINT, API_KEY,
 			API_SECRET);
+
+	@Test
+	public void testRegister() throws Exception {
+
+		logger.info("testRegister");
+		Farm farm = new Farm();
+		farm.setAccountId(9);
+		farm.setScalrEndpoint("test.cloudfarms.net");
+		farm.setScalrEnvId("71");
+		farm.setScalrEnvName("bst-dev");
+		farm.setScalrFarmId("1041");
+		farm.setScalrFarmName("bst-devops-production1");
+		farm.setSystemName("devops");
+		farm.setSystemType("devops");
+		farm.setFarmType("dev");
+		RegisterFarmResultRequest r = new RegisterFarmResultRequest();
+		r.setFarm(farm);
+		client.register(r);
+	}
 
 	@Test
 	public void testGetByParams() throws Exception {
 
-		logger.info("Get collectors");
-		List<Collector> collectors = this.client.getCollectors(
-				"bst-devops-es-64-centos6-1021", "71", "text");
-		assertTrue(collectors != null && collectors.size() == 1);
-		for (Collector c : collectors) {
-			logger.info("content===" + c.getContent());
-		}
-	}
-
-	@Test
-	public void testReceive() throws Exception {
-
-		logger.info("testReceive");
-		CollectorResult r = new CollectorResult();
-		r.setcType("metric");
-		r.setEnv("1");
-		r.setFarm("a");
-		r.setRole("r");
-		r.setServerID("1");
-		r.setTarget("env");
-		r.setText("r");
-		r.setTime(123l);
-		CreateCollectorResultRequest c = new CreateCollectorResultRequest();
-		c.setCollectorResult(r);
-		client.postResult(c);
+		logger.info("Get farms");
+		String res = this.client.getFarms("test.cloudfarms.net");
+		System.out.println(res);
 	}
 
 }

@@ -27,5 +27,8 @@
 		<table schema="buildmeta" tableName="collector">
 			<generatedKey column="id" sqlStatement="MySql" identity="true" />
 		</table>
+		<table schema="buildmeta" tableName="farm">
+			<generatedKey column="id" sqlStatement="MySql" identity="true" />
+		</table>
 	</context>
 </generatorConfiguration>

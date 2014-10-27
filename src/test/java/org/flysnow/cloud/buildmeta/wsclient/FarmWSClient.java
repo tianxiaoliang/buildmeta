@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
 import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
+import org.flysnow.cloud.buildmeta.domain.model.Farm;
 import org.flysnow.cloud.buildmeta.requests.CreateCollectorResultRequest;
+import org.flysnow.cloud.buildmeta.requests.RegisterFarmResultRequest;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Branch;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Build;
 import org.flysnow.cloud.buildmeta.wsclient.domain.model.Repository;
@@ -28,8 +30,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
-public class CollectorWSClient {
-	private Logger logger = Logger.getLogger(CollectorWSClient.class);
+public class FarmWSClient {
+	private Logger logger = Logger.getLogger(FarmWSClient.class);
 
 	private static final boolean DEBUG = false;
 
@@ -37,10 +39,11 @@ public class CollectorWSClient {
 	private String apiKey;
 	private String apiSecret;
 	private OAuthService oAuthService;
-	static Token accessToken = new Token("rtcIe1nbtwhG8fjfSPnUiIM4hWegrWGNGeRokHdI", "");
-	private static String URI = "/ws/collector";
+	static Token accessToken = new Token(
+			"rtcIe1nbtwhG8fjfSPnUiIM4hWegrWGNGeRokHdI", "");
+	private static String URI = "/ws/farm";
 
-	public CollectorWSClient(String endpoint, String apiKey, String apiSecret) {
+	public FarmWSClient(String endpoint, String apiKey, String apiSecret) {
 		if (endpoint.endsWith("/"))
 			endpoint = endpoint.substring(0, endpoint.length() - 1);
 		this.endpoint = endpoint;
@@ -57,38 +60,29 @@ public class CollectorWSClient {
 		}
 	}
 
-	public List<Collector> getCollectors(String role, String env, String type)
-			throws BuildWSClientException {
-		List<Collector> collectors = null;
+	public String getFarms(String endpoint) throws BuildWSClientException {
 
 		OAuthRequest request = new OAuthRequest(Verb.GET, this.endpoint + URI);
-		request.addQuerystringParameter("role", role);
-		request.addQuerystringParameter("env", env);
-		request.addQuerystringParameter("c_type", type);
+		request.addQuerystringParameter("scalr_endpoint", endpoint);
 
 		String jsonResponse = this.sendRequest(request);
 
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		GetCollectorResponse response = gson.fromJson(jsonResponse,
-				GetCollectorResponse.class);
-		collectors = response.getCollectors();
-
-		return collectors;
+		return jsonResponse;
 	}
-	public List<Collector> postResult(CreateCollectorResultRequest r)
-			throws BuildWSClientException {
-		List<Collector> collectors = null;
-		
-		OAuthRequest request = new OAuthRequest(Verb.POST, this.endpoint + URI+"/result"); 
-		request.addPayload(new Gson().toJson(r));
+
+	public String register(RegisterFarmResultRequest farm)
+			throws BuildWSClientException { 
+
+		OAuthRequest request = new OAuthRequest(Verb.POST, this.endpoint + URI
+				+ "/register");
+		request.addPayload(new Gson().toJson(farm));
 		System.out.println(request.getBodyContents());
 		String jsonResponse = this.sendRequest(request);
 
 		System.out.println(jsonResponse);
 
-		return collectors;
+		return jsonResponse;
 	}
-
 
 	public String sendRequest(OAuthRequest request)
 			throws BuildWSClientException {

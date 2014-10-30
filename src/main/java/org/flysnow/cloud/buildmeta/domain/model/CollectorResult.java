@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "collectorResult")
 public class CollectorResult {
+	private String uid;
 	private String domain;
 	private String farm;
 	private String env;
@@ -13,6 +14,14 @@ public class CollectorResult {
 	private Long time;
 	private String text;
 	private String cType;
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
 
 	public String combineTopic() {
 		domain = domain.replace(".", "-");

@@ -3,6 +3,7 @@ package org.flysnow.cloud.buildmeta.ui.resteasy;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.security.auth.login.Configuration;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,9 +19,11 @@ import javax.ws.rs.core.UriInfo;
 import org.apache.log4j.Logger;
 import org.flysnow.cloud.buildmeta.application.BuildService;
 import org.flysnow.cloud.buildmeta.application.CollectorService;
+import org.flysnow.cloud.buildmeta.client.ESConnectionManager;
 import org.flysnow.cloud.buildmeta.domain.model.Branch;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
 import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
+import org.flysnow.cloud.buildmeta.publisher.ElasticSearchPublisher;
 import org.flysnow.cloud.buildmeta.publisher.KafkaPublisher;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.BuildMetadataServiceException;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.ErrorCode;
@@ -87,10 +90,7 @@ public class CollectorResource {
 	public Response result(@Context UriInfo uri, CollectorResult result) {
 		logger.info("get result==" + result.getText());
 		// publish to kafka
-		String topic = result.combineTopic();
-		KafkaPublisher publisher = new KafkaPublisher();
-		publisher.init();
-		publisher.send(topic, new Gson().toJson(result));
+		ElasticSearchPublisher.getResource().send(result);
 		return Response.status(200).entity(result.getText()).build();
 
 	}

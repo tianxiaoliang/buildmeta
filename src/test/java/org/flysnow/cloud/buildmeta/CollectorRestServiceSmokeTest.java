@@ -60,7 +60,7 @@ public class CollectorRestServiceSmokeTest {
 		r.setServerID("1");
 		r.setTarget("env");
 		r.setText("r");
-		r.setTime(123l);
+		r.setTime(123111111l);
 		CreateCollectorResultRequest c = new CreateCollectorResultRequest();
 		c.setCollectorResult(r);
 		client.postResult(c);

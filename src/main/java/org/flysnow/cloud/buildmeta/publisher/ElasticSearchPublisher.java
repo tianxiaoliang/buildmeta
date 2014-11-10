@@ -3,16 +3,12 @@ package org.flysnow.cloud.buildmeta.publisher;
 import java.io.*;
 import java.util.UUID;
 
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.common.settings.*;
+import org.elasticsearch.client.Client;  
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.flysnow.cloud.buildmeta.client.ESConnectionManager;
 import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
-import org.flysnow.cloud.buildmeta.tool.Configuration;
-import org.flysnow.cloud.buildmeta.wsclient.ui.model.GetBranchResponse;
+import org.flysnow.cloud.buildmeta.tool.Configuration; 
 import org.apache.log4j.Logger;
 
 import com.google.gson.Gson;

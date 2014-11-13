@@ -48,22 +48,22 @@ public class CollectorRestServiceSmokeTest {
 		}
 	}
 
-	@Test
-	public void testReceive() throws Exception {
-
-		logger.info("testReceive");
-		CollectorResult r = new CollectorResult();
-		r.setcType("metric");
-		r.setEnv("1");
-		r.setFarm("a");
-		r.setRole("r");
-		r.setServerID("1");
-		r.setTarget("env");
-		r.setText("r");
-		r.setTime(123111111l);
-		CreateCollectorResultRequest c = new CreateCollectorResultRequest();
-		c.setCollectorResult(r);
-		client.postResult(c);
-	}
+//	@Test
+//	public void testReceive() throws Exception {
+//
+//		logger.info("testReceive");
+//		CollectorResult r = new CollectorResult();
+//		r.setcType("metric");
+//		r.setEnv("1");
+//		r.setFarm("a");
+//		r.setRole("r");
+//		r.setServerID("1");
+//		r.setTarget("env");
+//		r.setText("r");
+//		r.setTime(123111111l);
+//		CreateCollectorResultRequest c = new CreateCollectorResultRequest();
+//		c.setCollectorResult(r);
+//		client.postResult(c);
+//	}
 
 }

@@ -9,6 +9,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
@@ -33,6 +34,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.google.gson.Gson;
+import com.sun.istack.NotNull;
 
 @Controller
 @Path(CollectorResource.URL)
@@ -61,12 +63,13 @@ public class CollectorResource {
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	public String getCollectors(@QueryParam("role") String role,
-			@QueryParam("env") String env, @QueryParam("c_type") String c_type) {
+	@Path("/{env}/{role}/{c_type}")
+	public String getCollectors(@PathParam("role") @NotNull String role,
+			@PathParam("env") @NotNull String env, @PathParam("c_type") @NotNull String c_type) {
 		if (role == null || env == null || c_type == null) {
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setCode(ErrorCode.INVALID_PARAMETERS);
-			String message = "role,env and c type is required, ex: curl http://{endpoint}/ws/collector?role=someRole&env=1&c_type=text";
+			String message = "role,env and  type is required, ex: curl http://{endpoint}/ws/{env}/{role}/{c_type}";
 			errorResponse.setMessage(message);
 
 			BuildMetadataServiceException exception = new BuildMetadataServiceException(

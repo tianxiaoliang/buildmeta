@@ -61,10 +61,7 @@ public class CollectorWSClient {
 			throws BuildWSClientException {
 		List<Collector> collectors = null;
 
-		OAuthRequest request = new OAuthRequest(Verb.GET, this.endpoint + URI);
-		request.addQuerystringParameter("role", role);
-		request.addQuerystringParameter("env", env);
-		request.addQuerystringParameter("c_type", type);
+		OAuthRequest request = new OAuthRequest(Verb.GET, this.endpoint + URI+"/"+env+"/"+role+"/"+type); 
 
 		String jsonResponse = this.sendRequest(request);
 

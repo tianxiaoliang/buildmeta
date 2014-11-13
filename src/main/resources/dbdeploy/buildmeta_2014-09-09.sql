@@ -76,11 +76,12 @@ CREATE TABLE `collector` (
   `target` varchar(256) NOT NULL,
   `c_type` varchar(256) NOT NULL,
   `content` MediumText NOT NULL,
+  `expect` MediumText NOT NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO collector VALUES ('1', '71', 'bst-devops-es-64-centos6-1021', 'system env','text','env');
-
+INSERT INTO collector VALUES ('1', '71', 'bst-devops-buildmeta-64-centos6-1028', 'system env','text','env');
+INSERT INTO collector VALUES ('2', '71', 'bst-devops-buildmeta-64-centos6-1028', 'system env','text','cat /opt/buildmeta/src/main/resources/log4j.properties');
 
 CREATE TABLE IF NOT EXISTS `farm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

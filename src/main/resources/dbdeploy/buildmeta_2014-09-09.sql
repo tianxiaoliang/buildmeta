@@ -71,6 +71,7 @@ DROP TABLE IF EXISTS `collector`;
 
 CREATE TABLE `collector` (
   `id` int(11) NOT NULL auto_increment,
+  `scalr_url` varchar(256) NOT NULL,
   `env_id` varchar(256) NOT NULL,
   `role` varchar(256) NOT NULL,
   `target` varchar(256) NOT NULL,
@@ -80,8 +81,8 @@ CREATE TABLE `collector` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO collector VALUES ('1', '71', 'bst-devops-buildmeta-64-centos6-1028', 'system env','text','env');
-INSERT INTO collector VALUES ('2', '71', 'bst-devops-buildmeta-64-centos6-1028', 'system env','text','cat /opt/buildmeta/src/main/resources/log4j.properties');
+INSERT INTO collector VALUES ('1','test.cloudfarms.net', '71', 'bst-devops-buildmeta-64-centos6-1028', 'system env','text','env','');
+INSERT INTO collector VALUES ('2', 'test.cloudfarms.net','71', 'bst-devops-buildmeta-64-centos6-1028', 'system env','text','cat /opt/buildmeta/src/main/resources/log4j.properties','');
 
 CREATE TABLE IF NOT EXISTS `farm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

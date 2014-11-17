@@ -57,11 +57,11 @@ public class CollectorWSClient {
 		}
 	}
 
-	public List<Collector> getCollectors(String role, String env, String type)
+	public List<Collector> getCollectors(String scalrUrl,String role, String env, String type)
 			throws BuildWSClientException {
 		List<Collector> collectors = null;
 
-		OAuthRequest request = new OAuthRequest(Verb.GET, this.endpoint + URI+"/"+env+"/"+role+"/"+type); 
+		OAuthRequest request = new OAuthRequest(Verb.GET, this.endpoint + URI+"/"+scalrUrl+"/"+env+"/"+role+"/"+type); 
 
 		String jsonResponse = this.sendRequest(request);
 

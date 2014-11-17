@@ -12,6 +12,7 @@ import org.flysnow.cloud.buildmeta.domain.model.Build;
 import org.flysnow.cloud.buildmeta.domain.model.BuildExample;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
 import org.flysnow.cloud.buildmeta.domain.model.CollectorExample;
+import org.flysnow.cloud.buildmeta.domain.model.CollectorWithBLOBs;
 import org.flysnow.cloud.buildmeta.domain.model.Repository;
 import org.flysnow.cloud.buildmeta.domain.model.RepositoryExample;
 import org.flysnow.cloud.buildmeta.domain.model.BuildExample.Criteria;
@@ -26,7 +27,7 @@ public class CollectorService {
 	@Autowired
 	CollectorMapper collectorMapper;
 
-	public void save(Collector collector) {
+	public void save(CollectorWithBLOBs collector) {
 		// first check if exist
 		CollectorExample example = new CollectorExample();
 		org.flysnow.cloud.buildmeta.domain.model.CollectorExample.Criteria criteria = example
@@ -57,14 +58,15 @@ public class CollectorService {
 		return collectors;
 	}
 
-	public List<Collector> getCollectors(String role, String env, String c_type) {
+	public List<CollectorWithBLOBs> getCollectors(String scalrUrl,String role, String env, String c_type) {
 		CollectorExample example = new CollectorExample();
 		org.flysnow.cloud.buildmeta.domain.model.CollectorExample.Criteria criteria = example
 				.createCriteria();
 		criteria.andRoleEqualTo(role);
 		criteria.andEnvIdEqualTo(env);
 		criteria.andCTypeEqualTo(c_type);
-		List<Collector> collectors = collectorMapper.selectByExampleWithBLOBs(example);
+		criteria.andScalrUrlEqualTo(scalrUrl);
+		List<CollectorWithBLOBs> collectors = collectorMapper.selectByExampleWithBLOBs(example);
 		return collectors;
 	}
 

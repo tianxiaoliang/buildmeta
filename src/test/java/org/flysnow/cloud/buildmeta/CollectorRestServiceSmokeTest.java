@@ -9,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
 import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
+import org.flysnow.cloud.buildmeta.domain.model.CollectorWithBLOBs;
 import org.flysnow.cloud.buildmeta.requests.CreateCollectorResultRequest;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.ErrorResponse;
 import org.flysnow.cloud.buildmeta.wsclient.BuildMetadataWSClient;
@@ -41,29 +42,30 @@ public class CollectorRestServiceSmokeTest {
 
 		logger.info("Get collectors");
 		List<Collector> collectors = this.client.getCollectors(
-				"bst-devops-es-64-centos6-1021", "71", "text");
-		assertTrue(collectors != null && collectors.size() == 1);
+				"test.cloudfarms.net", "bst-devops-buildmeta-64-centos6-1028",
+				"71", "text");
+		assertTrue(collectors != null);
 		for (Collector c : collectors) {
-			logger.info("content===" + c.getContent());
+			logger.info("content===" + c.getEnvId());
 		}
 	}
 
-//	@Test
-//	public void testReceive() throws Exception {
-//
-//		logger.info("testReceive");
-//		CollectorResult r = new CollectorResult();
-//		r.setcType("metric");
-//		r.setEnv("1");
-//		r.setFarm("a");
-//		r.setRole("r");
-//		r.setServerID("1");
-//		r.setTarget("env");
-//		r.setText("r");
-//		r.setTime(123111111l);
-//		CreateCollectorResultRequest c = new CreateCollectorResultRequest();
-//		c.setCollectorResult(r);
-//		client.postResult(c);
-//	}
+	// @Test
+	// public void testReceive() throws Exception {
+	//
+	// logger.info("testReceive");
+	// CollectorResult r = new CollectorResult();
+	// r.setcType("metric");
+	// r.setEnv("1");
+	// r.setFarm("a");
+	// r.setRole("r");
+	// r.setServerID("1");
+	// r.setTarget("env");
+	// r.setText("r");
+	// r.setTime(123111111l);
+	// CreateCollectorResultRequest c = new CreateCollectorResultRequest();
+	// c.setCollectorResult(r);
+	// client.postResult(c);
+	// }
 
 }

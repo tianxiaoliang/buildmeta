@@ -24,6 +24,7 @@ import org.flysnow.cloud.buildmeta.client.ESConnectionManager;
 import org.flysnow.cloud.buildmeta.domain.model.Branch;
 import org.flysnow.cloud.buildmeta.domain.model.Collector;
 import org.flysnow.cloud.buildmeta.domain.model.CollectorResult;
+import org.flysnow.cloud.buildmeta.domain.model.CollectorWithBLOBs;
 import org.flysnow.cloud.buildmeta.publisher.ElasticSearchPublisher;
 import org.flysnow.cloud.buildmeta.publisher.KafkaPublisher;
 import org.flysnow.cloud.buildmeta.ui.resteasy.exception.BuildMetadataServiceException;
@@ -63,13 +64,16 @@ public class CollectorResource {
 	 */
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("/{env}/{role}/{c_type}")
-	public String getCollectors(@PathParam("role") @NotNull String role,
-			@PathParam("env") @NotNull String env, @PathParam("c_type") @NotNull String c_type) {
+	@Path("/{scalr_url}/{env}/{role}/{c_type}")
+	public String getCollectors(
+			@PathParam("scalr_url") @NotNull String scalr_url,
+			@PathParam("role") @NotNull String role,
+			@PathParam("env") @NotNull String env,
+			@PathParam("c_type") @NotNull String c_type) {
 		if (role == null || env == null || c_type == null) {
 			ErrorResponse errorResponse = new ErrorResponse();
 			errorResponse.setCode(ErrorCode.INVALID_PARAMETERS);
-			String message = "role,env and  type is required, ex: curl http://{endpoint}/ws/{env}/{role}/{c_type}";
+			String message = "role,env and type is required, ex: curl http://{endpoint}/ws/{env}/{role}/{c_type}";
 			errorResponse.setMessage(message);
 
 			BuildMetadataServiceException exception = new BuildMetadataServiceException(
@@ -77,10 +81,10 @@ public class CollectorResource {
 			throw exception;
 		}
 		logger.info("role=" + role);
-		List<Collector> collectors = collectorService.getCollectors(role, env,
-				c_type);
+		List<CollectorWithBLOBs> collectors = collectorService.getCollectors(
+				scalr_url, role, env, c_type);
 
-		HashMap<String, List<Collector>> map = new HashMap<String, List<Collector>>();
+		HashMap<String, List<CollectorWithBLOBs>> map = new HashMap<String, List<CollectorWithBLOBs>>();
 		map.put("collectors", collectors);
 		String json = new Gson().toJson(map);
 		System.out.println(json);
